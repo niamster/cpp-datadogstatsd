@@ -4,6 +4,7 @@ project( DataDogStatsD VERSION 1.0.0 LANGUAGES CXX )
 set( CMAKE_CXX_STANDARD 11 )
 set( SOURCE
   DataDogStatsD.cpp
+  DDEvent.cpp
   Helpers.cpp )
 include_directories(include)
 
