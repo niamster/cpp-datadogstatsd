@@ -78,11 +78,12 @@ public:
 	std::string returnSerializedTagsString(std::vector<std::string> tags);
 	std::string returnSerializedTagsString(std::map<std::string, std::string> tags);
 
-
+#ifdef DD_ENABLE_EVENTS
 	void event(DDEvent& ddEvent);
 	bool event(DDEvent ddEvent, bool nonBlockingMode, void(*eventCallback)(bool result, std::string error) = nullptr);
 
 	void(*eventCallback)(bool, std::string);
+#endif
 
 	long getTimeInMicroSeconds();
 private:
@@ -93,11 +94,13 @@ private:
 	void updateStats(const std::vector<std::string> stats, int delta = 1, float sampleRate = 1.0, const std::string& tags = "");
 	void send(std::map<std::string, std::string> data, float sampleRate = 1.0, std::string tags = "");
 	void flush(std::string& udp_message);
+#ifdef DD_ENABLE_EVENTS
 	void sendDDEventinthread(DDEvent ddEvent, void(*eventCallback)(bool result, std::string error));
 	static size_t curlResponseWriteCallback(void *contents, size_t size, size_t nmemb, void *userp);
 	std::thread *http_event_thread = NULL;
 	CURL *initCurl(DDEvent ddEvent, std::string *response, struct curl_slist *list, const char* jsonString);
 	bool httpEventThreadStarted = false;
+#endif
 	const std::string dd_entity_id_key = "dd.internal.entity_id";
 	const char * dd_entity_id;
 };

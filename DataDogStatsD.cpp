@@ -350,6 +350,7 @@ void DataDogStatsD::send(std::map<string, string> data, float sampleRate, string
 	}
 }
 
+#ifdef DD_ENABLE_EVENTS
 void DataDogStatsD::event(DDEvent& ddEvent)
 {
 	string udp_message = ddEvent.returnDDEventUDPString();
@@ -535,6 +536,7 @@ size_t DataDogStatsD::curlResponseWriteCallback(void *contents, size_t size, siz
 	((std::string*)userp)->append((char*)contents, size * nmemb);
 	return size * nmemb;
 }
+#endif
 
 void DataDogStatsD::flush(string& udp_message)
 {
@@ -662,6 +664,7 @@ long DataDogStatsD::getTimeInMicroSeconds()
 
 DataDogStatsD::~DataDogStatsD()
 {
+#ifdef DD_ENABLE_EVENTS
 	if (this->http_event_thread != NULL)
 	{
 		this->http_event_thread->join();
@@ -669,4 +672,5 @@ DataDogStatsD::~DataDogStatsD()
 		delete this->http_event_thread;
 		this->http_event_thread = NULL;
 	}
+#endif
 }

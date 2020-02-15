@@ -2,6 +2,8 @@
 #ifndef DDEVENT_H
 #define DDEVENT_H
 
+#ifdef DD_ENABLE_EVENTS
+
 #include <string>
 #include <time.h>
 #include <sstream>
@@ -22,7 +24,7 @@ class DDEvent
 public:
 	enum class Priority {NORMAL, LOW, NOT_SET};
 	enum class AlertType {
-		DD_ERROR, //Had to name as DD_ERROR as ERROR is defined somewhere within the curl/curl.h header 
+		DD_ERROR, //Had to name as DD_ERROR as ERROR is defined somewhere within the curl/curl.h header
 		WARNING, INFO, SUCCESS, NOT_SET};
 	DDEvent(std::string title, std::string text);
 	void setTitle(std::string title);
@@ -55,3 +57,4 @@ private:
 
 #endif
 
+#endif

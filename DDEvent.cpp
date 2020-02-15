@@ -1,5 +1,7 @@
 #include "datadogstatsd/DDEvent.h"
 
+#ifdef DD_ENABLE_EVENTS
+
 using namespace std;
 
 DDEvent::DDEvent(string title, string text)
@@ -240,3 +242,4 @@ void DDEvent::stringReplace(string& source, string needle, string replace)
 		source.replace(source.find(needle), needle.length(), replace);
 	}
 }
+#endif
